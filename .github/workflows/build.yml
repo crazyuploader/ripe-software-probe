@@ -1,0 +1,22 @@
+name: Builder
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a multi-line script
+        run: |
+          sudo apt-get update
+          sudo apt-get intall -y install git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
+          git clone --recursive https://github.com/RIPE-NCC/ripe-atlas-software-probe.git -b probev5
+          ./ripe-atlas-software-probe/build-config/debian/bin/make-deb
+      - uses: actions/upload-artifact@v2
+        with:
+            name: Built Deb File
+            path: ./*.deb
