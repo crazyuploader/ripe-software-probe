@@ -1,1 +1,3 @@
 # ripe-software-probe
+
+![Builder](https://github.com/crazyuploader/ripe-software-probe/workflows/Builder/badge.svg)
