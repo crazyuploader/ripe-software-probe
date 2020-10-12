@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +14,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           sudo apt-get update
-          sudo apt-get intall -y install git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
+          sudo apt-get install -y git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
           git clone --recursive https://github.com/RIPE-NCC/ripe-atlas-software-probe.git -b probev5
           ./ripe-atlas-software-probe/build-config/debian/bin/make-deb
       - uses: actions/upload-artifact@v2
