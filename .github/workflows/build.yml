@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,10 +14,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run a multi-line script
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
-          git clone --recursive https://github.com/RIPE-NCC/ripe-atlas-software-probe.git -b probev5
-          ./ripe-atlas-software-probe/build-config/debian/bin/make-deb
+          chmod +x build.sh
+          ./build.sh
       - uses: actions/upload-artifact@v2
         with:
             name: Built Deb File
