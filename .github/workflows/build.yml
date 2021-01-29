@@ -1,22 +1,31 @@
 name: Builder
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
+    inputs:
+      GIT_URL:
+        description: "Git URL"
+        default: "https://github.com/RIPE-NCC/ripe-atlas-software-probe.git"
+        required: true
+      BRANCH:
+        description: "Branch To Clone"
+        default: "master"
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run Build Script
+      - name: Git Clone
+        run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}"
+
+      - name: Build
         run: |
-          chmod +x build.sh
-          ./build.sh
-      - uses: actions/upload-artifact@v2
+          sudo apt-get update
+          sudo apt-get install -y git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
+          ./ripe-atlas-software-probe/build-config/debian/bin/make-deb
+
+          - uses: actions/upload-artifact@v2
         with:
             name: Built Deb File
             path: ./*.deb
