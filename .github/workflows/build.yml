@@ -24,6 +24,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
           ./ripe-atlas-software-probe/build-config/debian/bin/make-deb
+          
+      - name: Upload to file.io
+        run: |
+          FILE_NAME="$(ls *.deb)"
+          curl -F "file=@${FILE_NAME}" https://file.io
 
       - uses: actions/upload-artifact@v2
         with:
