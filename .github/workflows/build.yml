@@ -30,7 +30,7 @@ jobs:
           FILE_NAME="$(ls *.deb)"
           curl -F "file=@${FILE_NAME}" https://file.io
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
             name: Built Deb File
             path: ./*.deb
