@@ -30,12 +30,12 @@ jobs:
           cd ripe-atlas-software-probe
           dpkg-buildpackage -b -us -uc
           
-      - name: Upload to file.io
-        run: |
-          cd ripe-atlas-software-probe
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
-          FILE_NAME="ripe-atlas-probe_${TAG}_all.deb"
-          curl -F "file=@${FILE_NAME}" https://file.io
+      # - name: Upload to file.io
+      #   run: |
+      #     cd ripe-atlas-software-probe
+      #     TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+      #     FILE_NAME="ripe-atlas-probe_${TAG}_all.deb"
+      #     curl -F "file=@${FILE_NAME}" https://file.io
 
       - uses: actions/upload-artifact@v4
         with:
