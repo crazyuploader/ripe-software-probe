@@ -23,10 +23,11 @@ jobs:
           apt-get install --yes git build-essential debhelper libssl-dev autotools-dev
 
       - name: Clone Git Repository
-        run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}"
+        run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}" ripe-atlas-software-probe
 
       - name: Build the Deb File
         run: |
+          cd ripe-atlas-software-probe
           dpkg-buildpackage -b -us -uc
           
       - name: Upload to file.io
