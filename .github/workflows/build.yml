@@ -14,15 +14,19 @@ on:
 
 jobs:
   build:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
+    container: debian:latest
     steps:
-      - name: Git Clone
+      - name: Install required packages
+        run: |
+          apt-get update
+          apt-get install --yes git build-essential debhelper libssl-dev autotools-dev
+
+      - name: Clone Git Repository
         run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}"
 
-      - name: Build
+      - name: Build the Deb File
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git tar fakeroot libssl-dev libcap2-bin autoconf automake libtool build-essential
           dpkg-buildpackage -b -us -uc
           
       - name: Upload to file.io
