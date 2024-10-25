@@ -20,7 +20,7 @@ jobs:
       - name: Install required packages
         run: |
           apt-get update
-          apt-get install --yes git build-essential debhelper libssl-dev autotools-dev
+          apt-get install --yes git build-essential debhelper libssl-dev autotools-dev psmisc net-tools
 
       - name: Clone Git Repository
         run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}" ripe-atlas-software-probe
