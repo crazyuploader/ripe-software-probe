@@ -27,13 +27,10 @@ jobs:
 
       - name: Build the Deb File
         run: |
-          pushd ripe-atlas-software-probe
+          cd ripe-atlas-software-probe
           git checkout master
           dpkg-buildpackage -b -us -uc
           cp ../ripe-atlas-*.deb .
-          pushd .repo
-          dpkg-buildpackage -b -us -uc
-          popd
           
       # - name: Upload to file.io
       #   run: |
