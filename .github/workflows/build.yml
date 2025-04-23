@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: debian:latest
+    # container: debian:latest
     steps:
       - name: Install required packages
         run: |
