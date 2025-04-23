@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Install required packages
         run: |
-          apt-get update
-          apt-get install --yes git build-essential debhelper libssl-dev autotools-dev psmisc net-tools systemd
+          sudo apt-get update
+          sudo apt-get install --yes git build-essential debhelper libssl-dev autotools-dev psmisc net-tools systemd
 
       - name: Clone Git Repository
         run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}" ripe-atlas-software-probe
@@ -31,13 +31,6 @@ jobs:
           git checkout master
           dpkg-buildpackage -b -us -uc
           cp ../ripe-atlas-*.deb .
-          
-      # - name: Upload to file.io
-      #   run: |
-      #     cd ripe-atlas-software-probe
-      #     TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
-      #     FILE_NAME="ripe-atlas-probe_${TAG}_all.deb"
-      #     curl -F "file=@${FILE_NAME}" https://file.io
 
       - uses: actions/upload-artifact@v4
         with:
