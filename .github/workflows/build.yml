@@ -20,15 +20,20 @@ jobs:
       - name: Install required packages
         run: |
           apt-get update
-          apt-get install --yes git build-essential debhelper libssl-dev autotools-dev psmisc net-tools
+          apt-get install --yes git build-essential debhelper libssl-dev autotools-dev psmisc net-tools systemd
 
       - name: Clone Git Repository
         run: git clone --recursive "${{ github.event.inputs.GIT_URL }}" --branch "${{ github.event.inputs.BRANCH }}" ripe-atlas-software-probe
 
       - name: Build the Deb File
         run: |
-          cd ripe-atlas-software-probe
+          pushd ripe-atlas-software-probe
+          git checkout master
           dpkg-buildpackage -b -us -uc
+          cp ../ripe-atlas-*.deb .
+          pushd .repo
+          dpkg-buildpackage -b -us -uc
+          popd
           
       # - name: Upload to file.io
       #   run: |
