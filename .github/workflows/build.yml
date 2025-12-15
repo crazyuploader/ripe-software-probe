@@ -32,7 +32,7 @@ jobs:
           dpkg-buildpackage -b -us -uc
           cp ../ripe-atlas-*.deb .
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
             name: Built Deb File
             path: ./*.deb
